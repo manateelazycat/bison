@@ -108,12 +108,6 @@
   :type 'hook
   :group 'bison)
 
-(defcustom bison-declarers
-  '("%union" "%token" "%type" "%left" "%right" "%nonassoc")
-  "commands which can declare a token or state type"
-  :type 'list
-  :group 'bison)
-
 (define-derived-mode bison-mode c-mode "Bison"
   "Major mode for editing bison files"
   ;; Try to set the indentation correctly.
@@ -151,7 +145,7 @@
      ("\\(^\\(%{\\|%}\\)\\)" 1 'bison-font-lock-declare-delimiter-face)
      ("\\(^%%\\)" 1 'bison-font-lock-pattern-delimiter-face)
      ("^\\(.*\\):.*\n|" 1 'bison-font-lock-rule-face)
-     ((concat "^\\(" (regexp-opt bison-declarers) "\\)") 1 'font-lock-keyword-face)
+     ("\\(%token\\|%union\\|%type\\|%left\\|%right\\|%nonassoc\\)" 1 'font-lock-keyword-face)
      ))
   (set (make-local-variable 'font-lock-keywords-only) t)
   (font-lock-mode 1))
