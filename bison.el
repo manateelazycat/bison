@@ -103,6 +103,11 @@
   "Color for rule."
   :group 'bison)
 
+(defface bison-font-lock-rule-content-face
+  '((t (:foreground "gold3")))
+  "Color for rule content"
+  :group 'flex)
+
 (defcustom bison-mode-hook '()
   "bison mode hook."
   :type 'hook
@@ -146,6 +151,8 @@
      ("\\(^%%\\)" 1 'bison-font-lock-pattern-delimiter-face)
      ("^\\(.*\\):.*\n|" 1 'bison-font-lock-rule-face)
      ("\\(%token\\|%union\\|%type\\|%left\\|%right\\|%nonassoc\\)" 1 'font-lock-keyword-face)
+     ("^|\\(\\s-.*\\){" 1 'bison-font-lock-rule-content-face)
+     ("^.*:\\s-\\(.*\\){" 1 'bison-font-lock-rule-content-face)
      ))
   (set (make-local-variable 'font-lock-keywords-only) t)
   (font-lock-mode 1))
