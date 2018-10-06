@@ -1,7 +1,7 @@
-;;; bision.el --- Editing bision source code.
+;;; bison.el --- Editing bison source code.
 
-;; Filename: bision.el
-;; Description: Editing bision source code.
+;; Filename: bison.el
+;; Description: Editing bison source code.
 ;; Author: Andy Stewart <lazycat.manatee@gmail.com>
 ;; Maintainer: Andy Stewart <lazycat.manatee@gmail.com>
 ;; Copyright (C) 2018, Andy Stewart, all rights reserved.
@@ -9,7 +9,7 @@
 ;; Version: 0.1
 ;; Last-Updated: 2018-10-06 11:59:10
 ;;           By: Andy Stewart
-;; URL: http://www.emacswiki.org/emacs/download/bision.el
+;; URL: http://www.emacswiki.org/emacs/download/bison.el
 ;; Keywords:
 ;; Compatibility: GNU Emacs 27.0.50
 ;;
@@ -39,19 +39,19 @@
 
 ;;; Commentary:
 ;;
-;; Editing bision source code.
+;; Editing bison source code.
 ;;
 
 ;;; Installation:
 ;;
-;; Put bision.el to your load-path.
+;; Put bison.el to your load-path.
 ;; The load-path is usually ~/elisp/.
 ;; It's set in your ~/.emacs like this:
 ;; (add-to-list 'load-path (expand-file-name "~/elisp"))
 ;;
 ;; And the following to your ~/.emacs startup file.
 ;;
-;; (require 'bision)
+;; (require 'bison)
 ;;
 ;; No need more.
 
@@ -60,7 +60,7 @@
 ;;
 ;;
 ;; All of the above can customize by:
-;;      M-x customize-group RET bision RET
+;;      M-x customize-group RET bison RET
 ;;
 
 ;;; Change log:
@@ -84,29 +84,29 @@
 
 
 ;;; Code:
-(defgroup bision nil
-  "Editing bision files."
-  :group 'bision)
+(defgroup bison nil
+  "Editing bison files."
+  :group 'bison)
 
-(defface bision-font-lock-declare-delimiter-face
+(defface bison-font-lock-declare-delimiter-face
   '((t (:foreground "gray35")))
   "Color for declare delimiter."
-  :group 'bision)
+  :group 'bison)
 
-(defface bision-font-lock-pattern-delimiter-face
+(defface bison-font-lock-pattern-delimiter-face
   '((t (:foreground "gray35")))
   "Color for pattern delimiter."
-  :group 'bision)
+  :group 'bison)
 
-(defface bision-font-lock-rule-face
+(defface bison-font-lock-rule-face
   '((t (:foreground "Purple")))
   "Color for rule."
-  :group 'bision)
+  :group 'bison)
 
-(defcustom bision-mode-hook '()
-  "bision mode hook."
+(defcustom bison-mode-hook '()
+  "bison mode hook."
   :type 'hook
-  :group 'bision)
+  :group 'bison)
 
 (defcustom bison-declarers
   '("%union" "%token" "%type" "%left" "%right" "%nonassoc")
@@ -114,8 +114,8 @@
   :type 'list
   :group 'bison)
 
-(define-derived-mode bision-mode c-mode "Bision"
-  "Major mode for editing bision files"
+(define-derived-mode bison-mode c-mode "Bison"
+  "Major mode for editing bison files"
   ;; Try to set the indentation correctly.
   (setq-default c-basic-offset 4)
   (make-variable-buffer-local 'c-basic-offset)
@@ -128,35 +128,35 @@
   (c-toggle-hungry-state -1)
 
   ;; Load keymap.
-  (use-local-map bision-mode-map)
-  (define-key bision-mode-map [tab] 'bision-indent-command)
+  (use-local-map bison-mode-map)
+  (define-key bison-mode-map [tab] 'bison-indent-command)
 
   ;; Set comment strings.
   (setq comment-start "/*"
         comment-end "*/")
 
   ;; Highlight keywords.
-  (bision-highlight-keywords)
+  (bison-highlight-keywords)
 
   ;; Run hooks.
-  (run-hooks 'bision-mode-hook)
+  (run-hooks 'bison-mode-hook)
   )
 
-(defun bision-highlight-keywords ()
+(defun bison-highlight-keywords ()
   "Highlight keywords."
   ;; Add keywords for highlight.
   (font-lock-add-keywords
    nil
    '(
-     ("\\(^\\(%{\\|%}\\)\\)" 1 'bision-font-lock-declare-delimiter-face)
-     ("\\(^%%\\)" 1 'bision-font-lock-pattern-delimiter-face)
-     ("^\\(.*\\):.*\n|" 1 'bision-font-lock-rule-face)
+     ("\\(^\\(%{\\|%}\\)\\)" 1 'bison-font-lock-declare-delimiter-face)
+     ("\\(^%%\\)" 1 'bison-font-lock-pattern-delimiter-face)
+     ("^\\(.*\\):.*\n|" 1 'bison-font-lock-rule-face)
      ((concat "^\\(" (regexp-opt bison-declarers) "\\)") 1 'font-lock-keyword-face)
      ))
   (set (make-local-variable 'font-lock-keywords-only) t)
   (font-lock-mode 1))
 
-(defun bision-indent-command (&optional arg)
+(defun bison-indent-command (&optional arg)
   (interactive "P")
   (if (equal arg '(4))
       (c-indent-command)
@@ -176,6 +176,6 @@
                            )))
         (c-indent-command)))))
 
-(provide 'bision)
+(provide 'bison)
 
-;;; bision.el ends here
+;;; bison.el ends here
